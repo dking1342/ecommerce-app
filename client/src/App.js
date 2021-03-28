@@ -1,13 +1,13 @@
 import React from 'react'
-
-// dataset
-import { data } from './../src/data'
+import { BrowserRouter, Route } from 'react-router-dom';
 
 // components
-import Product from './components/Product';
+import HomeScreen from './views/HomeScreen';
+import ProductScreen from './views/ProductScreen';
 
 function App() {
   return (
+      <BrowserRouter>
         <div className="grid-container">
             <header className="row">
                 <div>
@@ -19,19 +19,12 @@ function App() {
                 </div>
             </header>
             <main>
-              <div className="row center">
-                {
-                  data.products.map((product,i)=>(
-                    <Product 
-                      product = {product}
-                      i = {i}
-                    />
-                  ))
-                }
-              </div>
+              <Route path="/product/:id" component ={ProductScreen}/>
+              <Route path="/" exact component={HomeScreen} />
             </main>
             <footer className="row center">Rights Reserved</footer>
         </div>
+      </BrowserRouter>
   );
 }
 
