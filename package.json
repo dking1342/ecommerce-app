@@ -1,0 +1,24 @@
+{
+  "name": "ecommerce",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A full stack MERN ecommerce app",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dking1342/ecommerce-app.git"
+  },
+  "author": "David King",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dking1342/ecommerce-app/issues"
+  },
+  "homepage": "https://github.com/dking1342/ecommerce-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}
