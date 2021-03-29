@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
-// dataset
+// dataset 
 import {data} from './data.js';
 
 // middleware
@@ -15,6 +15,14 @@ app.get('/', cors(),(req,res)=>{
 })
 app.get('/api/products',cors(),(req,res)=>{
     res.json(data.products)
+})
+app.get('/products/:id',cors(),(req,res)=>{
+    const product = data.products.find(item=> item._id === req.params.id);
+    if(product){
+        res.send(product)
+    } else {
+        res.status(404).send({message:'Product not found'})
+    }
 })
 
 
