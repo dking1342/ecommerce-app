@@ -1,33 +1,20 @@
-import React, { useState, useEffect } from 'react'
-
-// dataset
-
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 // components
 import Product from './../components/Product';
 import Loading from './../components/Loading';
 import MessageBox from './../components/MessageBox';
+import { listProducts } from './../actions/productActions';
 
 
 const HomeScreen = () => {
-    const [products,setProducts]=useState([]);
-    const [loading,setLoading]=useState(false);
-    const [error,setError]=useState(false);
+    const dispatch = useDispatch()
+    const productList = useSelector(state => state.productList);
+    const { loading, error, products } = productList;
 
     useEffect(()=>{
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const response = await fetch('http://localhost:5000/api/products');
-                const data = await response.json();
-                setLoading(false);
-                setProducts(data)                    
-            } catch (error) {
-                setError(error.message);
-                setLoading(false);
-            }
-        }
-        fetchData()
+        dispatch(listProducts())
     },[])
 
 

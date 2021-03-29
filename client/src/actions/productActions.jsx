@@ -1,0 +1,20 @@
+import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_FAIL, PRODUCT_LIST_SUCCESS } from './../constants/productConstants';
+
+export const listProducts = () => async(dispatch) => {
+    dispatch({
+        type: PRODUCT_LIST_REQUEST
+    });
+    try {
+        const response = await fetch('http://localhost:5000/api/products');
+        const data = await response.json();
+        dispatch({
+            type: PRODUCT_LIST_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_LIST_FAIL,
+            payload:error.msg
+        })
+    }
+}
