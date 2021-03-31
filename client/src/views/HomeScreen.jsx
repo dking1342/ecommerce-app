@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // components
@@ -24,18 +24,15 @@ const HomeScreen = () => {
                 loading ? 
                     <Loading /> : 
                     error ? 
-                    <MessageBox variant='danger'>{error}</MessageBox> : 
-                    <div className="row center">
-                    {
-                        products.map((product,i)=>(
-                        <Product 
-                            product = {product}
-                            i = {i}
-                            key={product._id}
-                        />
-                        ))
-                    }
-                    </div>
+                    <MessageBox variant='danger'>{error}</MessageBox> :
+                        <>
+                            {/* {products.length === 0 && <MessageBox>No Product Found</MessageBox>} */}
+                            <div className="row center">
+                            {products.map((product) => (
+                                <Product key={product._id} product={product}></Product>
+                            ))}
+                            </div>
+                        </>
             }
         </div>
 

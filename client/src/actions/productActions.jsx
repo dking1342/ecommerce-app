@@ -5,7 +5,7 @@ export const listProducts = () => async(dispatch) => {
         type: PRODUCT_LIST_REQUEST
     });
     try {
-        const response = await fetch('http://localhost:5000/api/products');
+        const response = await fetch('http://localhost:5000/api/products/');
         const data = await response.json();
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -25,7 +25,7 @@ export const detailsProduct = (productId) => async (dispatch) => {
         payload: productId
     });
     try {
-        const response = await fetch(`http://localhost:5000/products/${productId}`);
+        const response = await fetch(`http://localhost:5000/api/products/${productId}`);
         const data = await response.json();
 
         if(data.message !== 'Product not found'){

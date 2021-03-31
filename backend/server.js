@@ -5,16 +5,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-// dataset 
-import {data} from './data.js';
-
 // middleware
 const app = express();
 app.use(cors())
 
 // connection to the mongodb
 console.log(process.env.MONGO_URI)
-const conn = process.env.MONGO_URI || 'mongodb://localhost';
+const conn = '' || 'mongodb://localhost';
 const options = {
     useNewUrlParser:true,
     useUnifiedTopology:true,
@@ -24,23 +21,15 @@ mongoose.connect(conn,options)
 
 // Router
 import userRouter from './routes/userRouter.js';
-app.use('/api/users', userRouter)
+import productRouter from './routes/productRouter.js';
 
 
 // routes
-app.get('/api/products',cors(),(req,res)=>{
-    res.json(data.products)
-})
+app.use('/api/users', userRouter)
+app.use('/api/products',productRouter)
+
 app.get('/', cors(),(req,res)=>{
     res.send("Server is ready");
-})
-app.get('/products/:id',cors(),(req,res)=>{
-    const product = data.products.find(item=> item._id === req.params.id);
-    if(product){
-        res.send(product)
-    } else {
-        res.status(404).send({message:'Product not found'})
-    }
 })
 
 // error handler for routes
