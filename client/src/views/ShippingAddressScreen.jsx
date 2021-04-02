@@ -50,7 +50,7 @@ const ShippingAddressScreen = (props) => {
         {
             id:'postalCode',
             value: postalCode,
-            type:'number',
+            type:'text',
             title:'Postal Code',
             placeholder: 'Enter Postal Code',
             change(e){

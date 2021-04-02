@@ -221,7 +221,8 @@ img.large{
 }
 .form label{
   margin:1rem 0rem;
-  display:block;
+  display:inline-block;
+  padding-left: 0.5rem;
 }
 
 /* dropdown styles */
