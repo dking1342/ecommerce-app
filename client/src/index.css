@@ -133,6 +133,9 @@ a.brand{
 .min-30{
   min-width:30rem;
 }
+.min-15{
+  min-width: 15rem;
+}
 .col-2 li{
   display:flex;
   justify-content: space-between;
@@ -165,6 +168,9 @@ img.large{
 }
 .card-body{
   padding:1rem;
+}
+.card-body-w100{
+  width:100%;
 }
 .card-body > *{
   margin-bottom: 0.5rem;
