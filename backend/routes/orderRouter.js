@@ -10,7 +10,7 @@ orderRouter.post('/',cors(), isAuth, expressAsyncHandler(async(req,res)=>{
     if(req.body.orderItems.length === 0){
         res.status(400).send({message:'Cart is empty'})
     } else {
-        const folder = new Order({
+        const order = new Order({
             orderItems: req.body.orderItems,
             shippingAddress: req.body.shippingAddress,
             paymentMethod: req.body.paymentMethod,
