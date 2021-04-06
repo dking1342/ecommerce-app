@@ -64,10 +64,7 @@ ul{
 li{
   margin-top: 1rem;
 }
-input, 
-select, 
-textarea,
-button{
+:is(input, select, textarea, button){
   padding:1rem;
   border-radius: 0.5rem;
   border:0.1rem #a4a4a4 solid;
@@ -85,6 +82,9 @@ button.primary{
 }
 button.block{
   width:100%;
+}
+button.small{
+  font-size: 1.2rem;
 }
 input:hover,
 select:hover,
@@ -266,4 +266,21 @@ img.large{
 .checkout-steps > div.active{
   border-top-color: #f08000;
   color: #f08000;
+}
+
+/* table styles */
+.table{
+  width:100%;
+  border-collapse: collapse;
+}
+.table tbody tr:nth-of-type(odd){
+  background-color: #f4f4f4;
+}
+.table:is(td, th){
+  text-align: left;
+  border:0.1rem solid #e4e4e4;
+  padding:0.5rem;
+}
+.table button{
+  margin:0 0.2rem;
 }
