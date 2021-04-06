@@ -47,6 +47,15 @@ userRouter.post('/register',cors(),expressAsyncHandler(async (req,res)=>{
         isAdmin:createdUser.isAdmin,
         token:generateToken(createdUser)
     })
+}));
+
+userRouter.get('/:id',cors(),expressAsyncHandler(async(req,res)=>{
+    const user = await User.findById(req.params.id);
+    if(user){
+        res.send(user);
+    } else {
+        res.status(404).send({message:'User not found'})
+    }
 }))
 
 

@@ -5,7 +5,10 @@ import {
     USER_REGISTER_FAIL, 
     USER_REGISTER_REQUEST, 
     USER_REGISTER_SUCCESS, 
-    USER_SIGNOUT 
+    USER_SIGNOUT,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_DETAILS_FAIL
 } from "../constants/userConstants"
 
 export const register = (name,email,password) => async(dispatch) => {
@@ -109,4 +112,39 @@ export const signout = () => (dispatch) => {
     dispatch({
         type: USER_SIGNOUT
     })
+}
+
+export const detailsUser = (userId) => async(dispatch,getState)=>{
+    dispatch({
+        type:USER_DETAILS_REQUEST
+    })
+    try {
+        const { userSignin:{userInfo}} = getState();
+        const options = {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${userInfo.token}`
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: null // body data type must match "Content-Type" header
+          }
+        const response = await fetch(`/api/users/${userId}`, options);
+        const data = await response.json();
+
+        dispatch({
+            type:USER_DETAILS_SUCCESS,
+            payload: data
+        })        
+    } catch (error) {
+        dispatch({
+            type:USER_DETAILS_FAIL,
+            payload: error.message
+        })
+    }
 }
