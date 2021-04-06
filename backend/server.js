@@ -28,9 +28,14 @@ import productRouter from './routes/productRouter.js';
 import orderRouter from './routes/orderRouter.js';
 
 // routes
+
 app.use('/api/users', userRouter)
 app.use('/api/products',productRouter)
 app.use('/api/orders', orderRouter);
+app.get('/api/config/paypal',(req,res)=>{
+    console.log('get request',process.env.PAYPAL_CLIENT_ID)
+    res.send({message: process.env.PAYPAL_CLIENT_ID || 'sb'});
+})
 
 app.get('/', cors(),(req,res)=> res.send("Server is ready"))
 
