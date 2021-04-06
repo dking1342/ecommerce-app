@@ -15,6 +15,7 @@ import PlaceOrderScreen from './views/PlaceOrderScreen';
 import OrderScreen from './views/OrderScreen';
 import OrderHistoryScreen from './views/OrderHistoryScreen';
 import ProfileScreen from './views/ProfileScreen';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   const cart = useSelector(state=> state.cart);
@@ -74,7 +75,7 @@ function App() {
               <Route path="/placeorder" component={PlaceOrderScreen} />
               <Route path="/order/:id" component={OrderScreen}/>
               <Route path="/orderhistory" component={OrderHistoryScreen} />
-              <Route path="/profile" component={ProfileScreen} />
+              <PrivateRoute path="/profile" component={ProfileScreen} />
               <Route path="/" exact component={HomeScreen} />
             </main>
             <footer className="row center">Rights Reserved</footer>

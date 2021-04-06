@@ -8,7 +8,10 @@ import {
     USER_SIGNOUT,
     USER_DETAILS_REQUEST,
     USER_DETAILS_SUCCESS,
-    USER_DETAILS_FAIL
+    USER_DETAILS_FAIL,
+    USER_UPDATE_PROFILE_REQUEST,
+    USER_UPDATE_PROFILE_FAIL,
+    USER_UPDATE_PROFILE_SUCCESS
 } from "../constants/userConstants"
 
 export const register = (name,email,password) => async(dispatch) => {
@@ -146,5 +149,47 @@ export const detailsUser = (userId) => async(dispatch,getState)=>{
             type:USER_DETAILS_FAIL,
             payload: error.message
         })
+    }
+}
+
+export const updateUserProfile = (user) => async(dispatch, getState) => {
+    dispatch({
+        type: USER_UPDATE_PROFILE_REQUEST,
+        payload: user
+    })
+    try {
+        const { userSignin: { userInfo}} = getState();
+        const options = {
+            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${userInfo.token}`
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(user) // body data type must match "Content-Type" header
+          }
+        const response = await fetch(`/api/users/profile`, options);
+        const data = await response.json();
+        
+        dispatch({
+            type:USER_UPDATE_PROFILE_SUCCESS,
+            payload:data.message
+        })
+        dispatch({
+            type:USER_SIGNIN_SUCCESS,
+            payload:data
+        })
+        localStorage.setItem('userInfo',JSON.stringify(data))
+    } catch (error) {
+        dispatch({
+            type:USER_UPDATE_PROFILE_FAIL,
+            payload:error.message
+        })
+        
     }
 }
